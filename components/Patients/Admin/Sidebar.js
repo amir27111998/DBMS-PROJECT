@@ -14,23 +14,23 @@ const Sidebar=()=>{
 
     return(
       <BrowserRouter basename="/patient/dashboard">
-    
+     <div className="wrapper ">
         <div className="sidebar" data-color="black">
         
       
         <div className="logo">
-          <a href="/patient/dashboard" className="simple-text logo-normal">
+        <NavLink to="/" className="simple-text logo-normal">
             Dashboard
-          </a>
+          </NavLink>
         </div>
         <div className="sidebar-wrapper" id="sidebar-wrapper">
           <ul className="nav">
           <li className="active ">
             <a>
-            <a href="/patient/dashboard" className="text-dark" style={{textDecoration:'none'}}>
+            <NavLink to="/" className="text-dark" style={{textDecoration:'none'}}>
               <i className="now-ui-icons design_app"></i>
               <p>Dashboard</p>
-            </a>
+            </NavLink>
             </a>
           </li>
             <li>
@@ -90,7 +90,7 @@ const Sidebar=()=>{
       <Route  path="/visiteddoctors" component={VisitedDoctors} />
       <Route  path="/user" component={Profile} />
       </Switch>
-      
+      </div>
       </BrowserRouter>
     );
 

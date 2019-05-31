@@ -15,7 +15,7 @@
     "bootstrap": "^4.3.1",
     "camelize": "^1.0.0",
     "chart": "^0.1.2",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.8.0",
     "classnames": "^2.2.6",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
