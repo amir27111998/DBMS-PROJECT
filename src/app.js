@@ -1,28 +1,56 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import NavRoutes from '../components/NavRoutes';
-import {addDoctors} from '../actions/doctors';
-import {store} from '../store/doctorStore';
-import {applyFilters} from '../actions/filterDoctor';
-import {getVisibleDoctors} from '../selectors/doctorFilter';
-import Name from "../components/name"; 
+import {add,remove,update} from '../actions/patients';
+import store from '../store/patientStore';
+import uuid from 'uuid';
 
-store.subscribe(()=>{
-    var state=store.getState();
-    console.log(getVisibleDoctors(state.doctors,state.filters));
-});
 
-store.dispatch(addDoctors({name:"Aamir Ali",specialization:"Cardio",amount:890}));
-store.dispatch(addDoctors({name:"Ali Farooqi",specialization:"Physision",amount:230}));
-store.dispatch(addDoctors({name:"Umaiis Bhatti",specialization:"Physision",amount:970}));
+// store.subscribe(()=>{
+//     var sta=store.getState();
+//     console.log(sta);
+// });
 
-store.dispatch(applyFilters({specialization:"Physision"}));
+// var amir=new Date(1998,10,27);
+// var first_patient={
+//     id:uuid(),
+//     name:'SYED AAMIR ALI',
+//     father_name:'SYED MASOOD ALI',
+//     age:20,
+//     email:'alisyedamir2018@gmail.com',
+//     gender:'male',
+//     address:'C-236/1 Khudadad Colony Karachi.',
+//     password:'amirALI123$',
+//     picture:'amir.jpg',
+//     dob:amir,
+//     contact:'0304-5094429',
+//     blood_group:'B+'
+//     };
 
-const users=
-<div>
-<Name k_name="Faizan" age="30" job="Manager"></Name>
-<Name k_name="Ali" age="12" job="Peon"></Name>
-<Name k_name="Umais" age="50" job="CEO"></Name>
-<Name k_name="Aamir" age="20" job="Developer"></Name></div>;
 
-ReactDOM.render(users,document.getElementById('umais'));
+
+
+// var faiz=new Date(2001,3,25);
+// var second_patient={
+//     id:uuid(),
+//     name:'SYED FAIZAN ALI',
+//     father_name:'SYED MASOOD ALI',
+//     age:18,
+//     email:'alisyedfaizan123@gmail.com',
+//     gender:'male',
+//     address:'C-236/1 Khudadad Colony Karachi.',
+//     password:'AMIRali123$',
+//     picture:'faiz.jpg',
+//     dob:faiz,
+//     contact:'0313-2099657',
+//     blood_group:'B+'
+//     };
+
+
+
+// store.dispatch(add(first_patient));
+// store.dispatch(add(second_patient));
+// store.dispatch(update(first_patient.id,{name:"Umais Bhatti",father_name:"Kalim Bhatti",age:23}))
+// store.dispatch(remove(first_patient.id));
+
+ReactDOM.render(<NavRoutes/>,document.getElementById('app'));

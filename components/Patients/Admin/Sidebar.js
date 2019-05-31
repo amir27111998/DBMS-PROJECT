@@ -1,0 +1,100 @@
+import React from 'react';
+import '../loadingFiles';
+
+
+import Dashboard from './DashboardGraph';
+import Appointment from './Appointment';
+import Profile from './Profile';
+import History from './History';
+import VisitedDoctors from './VisitedDoctors';
+import {BrowserRouter,Route,Switch,NavLink} from 'react-router-dom';
+
+
+const Sidebar=()=>{
+
+    return(
+      <BrowserRouter basename="/patient/dashboard">
+    
+        <div className="sidebar" data-color="black">
+        
+      
+        <div className="logo">
+          <a href="/patient/dashboard" className="simple-text logo-normal">
+            Dashboard
+          </a>
+        </div>
+        <div className="sidebar-wrapper" id="sidebar-wrapper">
+          <ul className="nav">
+          <li className="active ">
+            <a>
+            <a href="/patient/dashboard" className="text-dark" style={{textDecoration:'none'}}>
+              <i className="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+            </a>
+            </a>
+          </li>
+            <li>
+              <a>
+            
+                <i className="now-ui-icons education_atom"></i>
+                <NavLink to="/appointment" className="text-light" style={{textDecoration:'none'}}>
+                  <p>Appointment
+                  </p>
+                  </NavLink>
+            
+              </a>
+            </li>
+            <li>
+              <a>
+                <i className="now-ui-icons location_map-big"></i>
+                <NavLink to="/history" className="text-light" style={{textDecoration:'none'}}>
+                <p>Appointment History</p>
+                </NavLink>
+                
+              </a>
+            </li>
+            <li>
+              <a>
+            
+                <i className="now-ui-icons education_atom"></i>
+                <NavLink to="/visiteddoctors" className="text-light" style={{textDecoration:'none'}}>
+                  <p>Visited Doctors
+                  </p>
+                  </NavLink>
+            
+              </a>
+            </li>
+            <li>
+              <a>
+            
+                <i className="now-ui-icons education_atom"></i>
+                <NavLink to="/user" className="text-light" style={{textDecoration:'none'}}>
+                  <p>User Profile
+                  </p>
+                  </NavLink>
+            
+              </a>
+            </li>
+            
+          
+
+          </ul>
+        </div>
+      </div>
+
+      <Switch >
+      
+      <Route path="/"  component={Dashboard} exact={true}/>
+      <Route path="/appointment" component={Appointment} />
+      <Route path="/history" component={History} />
+      <Route  path="/visiteddoctors" component={VisitedDoctors} />
+      <Route  path="/user" component={Profile} />
+      </Switch>
+      
+      </BrowserRouter>
+    );
+
+
+}
+
+export default Sidebar;

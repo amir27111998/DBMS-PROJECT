@@ -1,28 +1,10 @@
 import React from 'react';
-import google from '../components/Google';
-import User from '../components/User';
+import LoginPatient from './Patients/LoginPatient';
+import SignupPatient from './Patients/SignupPatient';
 import notFound from '../components/notFound';
-import {Nav,Navbar} from 'react-bootstrap'; 
-import  {BrowserRouter,NavLink,Switch,Route}  from 'react-router-dom'
-
-const Navigation=()=>{
-    return(
-        <header>
-        
-        <Navbar bg="light" expand="lg">
-  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
-    <NavLink to="/" activeClassName="text-danger" exact={true}>User</NavLink>
-        <NavLink to="/google" activeClassName="text-danger" >Google</NavLink>
-    </Nav>
-   
-  </Navbar.Collapse>
-</Navbar>
-        </header>
-    )
-};
+import  {BrowserRouter,NavLink,Switch,Route}  from 'react-router-dom';
+import Admin from '../components/Patients/Admin/Admin';
+import Home from '../components/Home';
 
 
 
@@ -31,11 +13,13 @@ return(
     
     
     <BrowserRouter>
-        <Navigation/>
+
         <Switch >
-        <Route path="/" component={User} exact={true}  />
-        <Route path="/google/:id?" component={google} />
-        <Route component={notFound} />
+        <Route path="/" component={Home} exact={true}  />
+        <Route path="/signup/patient" component={SignupPatient}   />
+        <Route path="/login/patient" component={LoginPatient} />
+        <Route path="/patient/dashboard" component={Admin} />
+        <Route component={notFound}/>
         </Switch>
     </BrowserRouter>
     
