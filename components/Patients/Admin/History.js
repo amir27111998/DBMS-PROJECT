@@ -1,151 +1,136 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../loadingFiles';
 import NavDash from './NavDash';
+import {connect} from 'react-redux';
+import {Spinner,Button} from 'react-bootstrap';
+import {onlyDate,onlyTime} from '../Utilities'
 
-const History=()=>{
-return(
-    <div className="wrapper ">
+
+
+class History extends Component{
+  constructor(props){
+    super(props);
+    this.props=props;
+    this.state={
+      appointments:[]
+    };
+
+  } 
+
+  
+
+
+
+  render(){
+
+
+    if(!this.props.status){
+      
+    return(
+        <div className="wrapper ">
+        
+        <div className="main-panel" id="main-panel">
+        <NavDash title="History" />
+          <div className="panel-header panel-header-sm">
+          </div>
+          <div className="content">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="card">
+                  <div className="card-header">
+                    <h4 className="card-title">History Table</h4>
+                  </div>
+                  <div className="card-body">
+                  <div className="table-responsive">
+                    <table className="table">
+                        <thead className=" text-primary">
+                          <th>
+                            Id
+                          </th>
+                          <th>
+                          Doctor's Name
+                          </th>
+                          <th>
+                            Status
+                          </th>
     
-    <div className="main-panel" id="main-panel">
-    <NavDash title="History" />
-      <div className="panel-header panel-header-sm">
-      </div>
-      <div className="content">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="card">
-              <div className="card-header">
-                <h4 className="card-title"> Simple Table</h4>
-              </div>
-              <div className="card-body">
-                <div className="table-responsive">
-                  <table className="table">
-                    <thead className=" text-primary">
-                      <th>
-                        Name
-                      </th>
-                      <th>
-                        Country
-                      </th>
-                      <th>
-                        City
-                      </th>
-                      <th className="text-right">
-                        Salary
-                      </th>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          Dakota Rice
-                        </td>
-                        <td>
-                          Niger
-                        </td>
-                        <td>
-                          Oud-Turnhout
-                        </td>
-                        <td className="text-right">
-                          $36,738
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Minerva Hooper
-                        </td>
-                        <td>
-                          Curaçao
-                        </td>
-                        <td>
-                          Sinaai-Waas
-                        </td>
-                        <td className="text-right">
-                          $23,789
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Sage Rodriguez
-                        </td>
-                        <td>
-                          Netherlands
-                        </td>
-                        <td>
-                          Baileux
-                        </td>
-                        <td className="text-right">
-                          $56,142
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Philip Chaney
-                        </td>
-                        <td>
-                          Korea, South
-                        </td>
-                        <td>
-                          Overland Park
-                        </td>
-                        <td className="text-right">
-                          $38,735
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Doris Greene
-                        </td>
-                        <td>
-                          Malawi
-                        </td>
-                        <td>
-                          Feldkirchen in Kärnten
-                        </td>
-                        <td className="text-right">
-                          $63,542
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Mason Porter
-                        </td>
-                        <td>
-                          Chile
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td className="text-right">
-                          $78,615
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Jon Porter
-                        </td>
-                        <td>
-                          Portugal
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td className="text-right">
-                          $98,615
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                          <th>
+                            Date
+                          </th>
+    
+                          <th>
+                            Time
+                          </th>
+    
+                        </thead>
+                        <tbody>
+    
+                          {
+                          this.props.appointments.filter((app)=>{
+                            return app.tag!="Pending";
+                          }).map((appointment)=>{
+                            return(
+                              <tr>
+                              <td>
+                               {appointment.id}
+                              </td>
+                              <td>
+                              Dr. {appointment.doctoR_NAME}
+                            </td>
+                            <td>
+                              {appointment.tag}
+                            </td>
+                            <td>
+                            {onlyDate(appointment.apP_DATETIME)}
+                            </td>
+                            <td>
+                            {onlyTime(appointment.apP_DATETIME)}
+                            </td>
+                            </tr>
+    
+                            )
+                          })
+                          }
+                          
+                         
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
+              
             </div>
           </div>
           
         </div>
       </div>
-      
-    </div>
-  </div>
-)
+    )}
+    
+    return(<div className="wrapper ">
+        
+        
+        <div className="main-panel" id="main-panel" style={{top:'50%',textAlign:'center',background:'none'}}>
+        <Spinner variant="danger" animation="border"/>
+          </div>
+        
+      </div>)
+
+
+  }
+
+
+}
+
+
+
+const mapStateToProps=(state)=>{
+  return{
+    appointments:state.appointments.data,
+    status:state.appointments.loading
+  }
 };
 
-export default History;
+const HistoryWithData=connect(mapStateToProps)(History);
+
+export default HistoryWithData;

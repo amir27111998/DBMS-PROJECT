@@ -40,6 +40,7 @@ const Appointment=()=>{
                         <option>Physiotherapist</option>
                       </select>
                       &nbsp;&nbsp;
+                    
                       <select name="time"  className="form-control">
                         <option>Time</option>
                         <option>3:00PM</option>

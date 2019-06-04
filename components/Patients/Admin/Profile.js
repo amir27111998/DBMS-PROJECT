@@ -1,8 +1,12 @@
 import React from 'react';
 import '../loadingFiles';
+import {Redirect} from 'react-router-dom';
 import NavDash from './NavDash';
-
+import {onlyDate} from '../Utilities';
 const Profile=()=>{
+  
+  var user=JSON.parse(sessionStorage.getItem('user'));
+  var picturePath="./assets/img/mike.jpg";
     return(
     <div class="wrapper ">
     <div class="main-panel" id="main-panel">
@@ -14,41 +18,41 @@ const Profile=()=>{
           <div class="col-md-8">
             <div class="card">
               <div class="card-header">
-                <h5 class="title">Edit Profile</h5>
+                <h5 class="title">Profile Information</h5>
               </div>
               <div class="card-body">
                 <form>
                   <div class="row">
                     <div class="col-md-5 pr-1">
                       <div class="form-group">
-                        <label>Company (disabled)</label>
-                        <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc." />
+                        <label>Name</label>
+                        <input type="text" class="form-control" disabled="true" placeholder="Name" value={user.name} />
                       </div>
                     </div>
                     <div class="col-md-3 px-1">
                       <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Username" value="michael23" /> 
+                        <label>Contact</label>
+                        <input type="text" class="form-control" disabled="true" placeholder="Contact" value={user.contact} /> 
                       </div>
                     </div>
                     <div class="col-md-4 pl-1">
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" placeholder="Email" />
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control" disabled="true" value={user.email} placeholder="Email" />
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" class="form-control" placeholder="Company" value="Mike" />
+                        <label>Father Name</label>
+                        <input type="text" class="form-control" disabled="true" placeholder="Father Name" value={user.fatheR_NAME} />
                       </div>
                     </div>
                     <div class="col-md-6 pl-1">
                       <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last Name" value="Andrew" />
+                        <label>Date Of Birth</label>
+                        <input type="text" class="form-control" disabled="true" placeholder="Date" value={onlyDate(user.dob)} />
                       </div>
                     </div>
                   </div>
@@ -56,38 +60,11 @@ const Profile=()=>{
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Address</label>
-                        <input type="text" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" />
+                        <input type="text" class="form-control" disabled="true" placeholder="Home Address" value={user.address} />
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-4 pr-1">
-                      <div class="form-group">
-                        <label>City</label>
-                        <input type="text" class="form-control" placeholder="City" value="Mike" />
-                      </div>
-                    </div>
-                    <div class="col-md-4 px-1">
-                      <div class="form-group">
-                        <label>Country</label>
-                        <input type="text" class="form-control" placeholder="Country" value="Andrew" />
-                      </div>
-                    </div>
-                    <div class="col-md-4 pl-1">
-                      <div class="form-group">
-                        <label>Postal Code</label>
-                        <input type="number" class="form-control" placeholder="ZIP Code" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>About Me</label>
-                        <textarea rows="4" cols="80" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </form>
               </div>
             </div>
@@ -99,32 +76,21 @@ const Profile=()=>{
               </div>
               <div class="card-body">
                 <div class="author">
-                  <a href="#">
-                    <img class="avatar border-gray" src={require("./assets/img/mike.jpg")} alt="..." />
-                    <h5 class="title">Mike Andrew</h5>
+                  <a >
+                   
+                    <img class="avatar border-gray" src={require("./assets/img/"+user.picture)} alt="..." />
+                    <h5 class="title">{user.name}</h5>
                   </a>
                   <p class="description">
-                    michael24
+                  {onlyDate(user.dob)}
                   </p>
                 </div>
                 <p class="description text-center">
-                  "Lamborghini Mercy
-                  <br /> Your chick she so thirsty
-                  <br /> I'm in that two seat Lambo"
+                 {user.address}
                 </p>
               </div>
               <hr /> 
-              <div class="button-container">
-                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                  <i class="fab fa-facebook-f"></i>
-                </button>
-                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                  <i class="fab fa-twitter"></i>
-                </button>
-                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                  <i class="fab fa-google-plus-g"></i>
-                </button>
-              </div>
+              
             </div>
           </div>
         </div>

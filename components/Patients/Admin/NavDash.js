@@ -19,8 +19,11 @@ const NavDash=(props)=>{
        
             <ul className="navbar-nav">
              
-              <li className="nav-item">
-                <a className="nav-link" href="#pablo">
+              <li className="nav-item "  onClick={(e)=>{
+                sessionStorage.setItem('user',{});
+                sessionStorage.setItem('isPatient','');
+              }}>
+                <a className="nav-link" href="#" >
                   <i className="now-ui-icons users_single-02"></i>
                   <p>
                     <span className="d-lg-none d-md-block"></span>
@@ -28,6 +31,7 @@ const NavDash=(props)=>{
                   </p>
                 </a>
               </li>
+            
             </ul>
           </div>
         </div>

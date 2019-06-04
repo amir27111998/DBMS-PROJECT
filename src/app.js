@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import NavRoutes from '../components/NavRoutes';
-import {add,remove,update} from '../actions/patients';
-import store from '../store/patientStore';
-import uuid from 'uuid';
+import {Provider} from 'react-redux';
+
 
 
 // store.subscribe(()=>{
 //     var sta=store.getState();
 //     console.log(sta);
 // });
+
+//store.dispatch(login('alisyedamir2018@gmail.com','amirALI123$'));
 
 // var amir=new Date(1998,10,27);
 // var first_patient={
@@ -30,21 +31,7 @@ import uuid from 'uuid';
 
 
 
-// var faiz=new Date(2001,3,25);
-// var second_patient={
-//     id:uuid(),
-//     name:'SYED FAIZAN ALI',
-//     father_name:'SYED MASOOD ALI',
-//     age:18,
-//     email:'alisyedfaizan123@gmail.com',
-//     gender:'male',
-//     address:'C-236/1 Khudadad Colony Karachi.',
-//     password:'AMIRali123$',
-//     picture:'faiz.jpg',
-//     dob:faiz,
-//     contact:'0313-2099657',
-//     blood_group:'B+'
-//     };
+
 
 
 
@@ -53,4 +40,6 @@ import uuid from 'uuid';
 // store.dispatch(update(first_patient.id,{name:"Umais Bhatti",father_name:"Kalim Bhatti",age:23}))
 // store.dispatch(remove(first_patient.id));
 
-ReactDOM.render(<NavRoutes/>,document.getElementById('app'));
+
+
+ReactDOM.render(<NavRoutes />,document.getElementById('app'));
