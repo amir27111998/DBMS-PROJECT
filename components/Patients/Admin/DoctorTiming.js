@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import NavDash from './NavDash';
 import '../loadingFiles';
-import { Button, Spinner,Alert } from 'react-bootstrap';
+import { Button, Spinner,Alert, Jumbotron } from 'react-bootstrap';
 import {doctorTiming} from './redux/serviceLoder';
 import {connect} from 'react-redux';
-import {onlyTime,checkDay,checkDate} from '../Utilities';
+import {onlyTime,checkDay,checkDate, onlyDate} from '../Utilities';
 
 
 
@@ -20,6 +20,9 @@ class DoctorTimings extends Component{
         success:false,
         successMsg:""
       }
+      this.email=this.props.doctorsList.data.filter((doctor)=>{
+        return this.props.match.params.id==doctor.id
+      })[0].email;
       this.onSelectedDate=this.onSelectedDate.bind(this);
       this.checkDateTime=this.checkDateTime.bind(this);
       this.onSubmit=this.onSubmit.bind(this);
@@ -131,7 +134,7 @@ checkDateTime(id,date,starttime,endtime,insert){
 
 
 onSelectedDate(id,days,date,start,end){
-      if(checkDay(days,date.target.value)==-1 || checkDate(date.target.value)){
+  if(checkDay(days,date.target.value)==-1 || checkDate(date.target.value)){
         this.setState({error:true,errorMsg:"Please select the valid day or date",buttonStatus:false});
       }else{
         this.setState({error:false,errorMsg:"",buttonStatus:true});
@@ -152,7 +155,22 @@ onSubmit(e){
       this.setState({error:false,errorMsg:"",buttonStatus:true});
       var insert=true;
       this.checkDateTime(this.props.match.params.id,date,startTime,endTime,insert);
-     
+      
+      
+      
+      Email.send({
+        Host : "smtp.elasticemail.com",
+        Username : "alisyedamir2018@gmail.com",
+        Password : "1ba4c501-11f3-4f60-ba1c-ba4a10226dd4",
+        To : this.email,
+        From : "alisyedamir2018@gmail.com",
+        Subject : "Checkout New Appointments",
+        Body : "<h1>New Appointments</h1>"+
+               "<p class='text-danger'>You got an appointment on : <strong>"+onlyDate(date)+"</strong></p>"
+              +"<p>Between timings : "+onlyTime(startTime) +"-"+ onlyTime(endTime)+"</p>"+
+              '<a href="https://localhost:44379/login/doctor">Open Your Dashboard</a>'
+    }).then(
+    );
     }
 }
 

@@ -76,7 +76,31 @@ const Footer=()=>{
 }
 
 
+const sendMessage=(e)=>
+{
+  e.preventDefault();
+  var name=e.target.elements.name.value;
+  var email=e.target.elements.email.value;
+  var address=e.target.elements.address.value;
+  var message=e.target.elements.message.value;
+
+  Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "alisyedamir2018@gmail.com",
+    Password : "1ba4c501-11f3-4f60-ba1c-ba4a10226dd4",
+    To : email,
+    From : 'alisyedamir2018@gmail.com',
+    Subject : "Message From "+name,
+    Body : "<p><strong>Address : </strong>"+address+"</p>"
+          +"<p><strong>Message : </strong>"+message+"</p>"
+}).then(
+);
+}
+
+
 const ContentSection=()=>{
+
+ 
   return(
     <Container fluid={true} >
     <Content id="services" title="SERVICES">
@@ -245,29 +269,29 @@ Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metu
         
         <Col lg={6} md={12} sm={12} className="about">
         <h3 className="text-capital wow slideInRight">Ask Any Query</h3>
-       <form  className="wow slideInRight">
+       <form  className="wow slideInRight" onSubmit={sendMessage}>
           <div className="form-group">
           <label for="name">Name:</label>
-          <input type="text" className="form-control" id="name" /> 
+          <input type="text" className="form-control" id="name" name="name" /> 
           </div>
 
           <div className="form-group">
           <label for="email">E-mail:</label>
-          <input type="email" className="form-control" id="email" /> 
+          <input type="email" className="form-control" id="email" name="email" /> 
           </div>
 
           <div className="form-group">
           <label for="address">Address:</label>
-          <input type="text" className="form-control" id="address" /> 
+          <input type="text" className="form-control" id="address" name="address" /> 
           </div>
 
           
           <div className="form-group">
           <label for="msg">Message:</label>
-          <textarea type="text" className="form-control" style={{height:150}} id="msg" ></textarea> 
+          <textarea type="text" className="form-control" style={{height:150}} id="msg" name="message" ></textarea> 
           </div>
 
-          <Button variant="primary">SUBMIT</Button>
+          <Button variant="primary" type="submit">SUBMIT</Button>
 
        </form>
 

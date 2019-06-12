@@ -63,7 +63,7 @@ searchSpecialization(e){
 
   render(){
     if(!this.props.status){
-      console.log(this.props.filters);
+      console.log(this.props);
       return (
         <div className="wrapper ">
         <div className="main-panel" id="main-panel">
