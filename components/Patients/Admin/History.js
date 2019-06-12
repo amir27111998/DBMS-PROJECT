@@ -2,24 +2,36 @@ import React, { Component } from 'react';
 import '../loadingFiles';
 import NavDash from './NavDash';
 import {connect} from 'react-redux';
-import {Spinner,Button} from 'react-bootstrap';
+import {Spinner, Button} from 'react-bootstrap';
 import {onlyDate,onlyTime} from '../Utilities'
-
+import {loadAppointments} from './redux/serviceLoder';
 
 
 class History extends Component{
   constructor(props){
     super(props);
     this.props=props;
-    this.state={
-      appointments:[]
-    };
-
+    this.feedback=this.feedback.bind(this);
+    this.prescription=this.prescription.bind(this);
   } 
 
   
+feedback(id){
+ this.props.history.push("/feedback/"+id);
+}
 
-
+prescription(id){
+  fetch("https://localhost:44379/api/Patients/prescription/"+id)
+  .then((res)=>res.json())
+  .then((data)=>{
+    if(data[0]!=null){
+    window.open(require('./assets/pres/'+data[0]));
+    }
+    else{
+      window.open(require('./assets/img/notFound.jpg'));
+    }
+  });
+ }
 
   render(){
 
@@ -61,13 +73,19 @@ class History extends Component{
                           <th>
                             Time
                           </th>
-    
+
+                          <th>
+                            Actions
+                          </th>
+                         
                         </thead>
                         <tbody>
     
                           {
                           this.props.appointments.filter((app)=>{
-                            return app.tag!="Pending";
+                            return (app.tag!="Pending" && app.tag!="Accepted");
+                          }).sort((a,b)=>{
+                            return new Date(a.apP_DATETIME).getTime() < new Date(b.apP_DATETIME)?1:-1;
                           }).map((appointment)=>{
                             return(
                               <tr>
@@ -86,6 +104,18 @@ class History extends Component{
                             <td>
                             {onlyTime(appointment.apP_DATETIME)}
                             </td>
+                            {
+                              appointment.tag=="Completed"?
+                              <td>
+                             <Button variant="dark" onClick={()=>{this.prescription(appointment.id)}}>View Prescription</Button>
+                             &nbsp;&nbsp;
+                              <Button variant="primary" onClick={()=>{this.feedback(appointment.id)}}>Give Feedback</Button></td>:
+                              <td>
+                              <Button variant="dark" className="disabled">View Prescription</Button>
+                              &nbsp;&nbsp;
+                               <Button variant="primary" className="disabled">Give Feedback</Button></td>
+                            }
+
                             </tr>
     
                             )
@@ -123,14 +153,21 @@ class History extends Component{
 }
 
 
-
 const mapStateToProps=(state)=>{
-  return{
+  return {
     appointments:state.appointments.data,
     status:state.appointments.loading
   }
-};
+}
 
-const HistoryWithData=connect(mapStateToProps)(History);
+
+
+const mapDispatchToProps=(dispatch)=>{
+ return dispatch(loadAppointments(JSON.parse(sessionStorage.getItem('user')).id));
+  
+}
+
+
+const HistoryWithData=connect(mapStateToProps,mapDispatchToProps)(History);
 
 export default HistoryWithData;

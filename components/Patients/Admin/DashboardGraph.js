@@ -5,7 +5,7 @@ import {Line} from 'react-chartjs-2';
 import NavDash from './NavDash';
 import {dashboardFormatter, onlyDate,onlyTime} from '../Utilities';
 import {connect} from 'react-redux';
-import loadAppointments from './redux/serviceLoder';
+import {loadAppointments,updateAppointment} from './redux/serviceLoder';
 
 //Graph Options
 function chartData(data=[0,0,230,34,5]) {
@@ -15,7 +15,7 @@ function chartData(data=[0,0,230,34,5]) {
     labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL','AUG','SEP','OCT','NOV',"DEC"],
     datasets: [
       {
-        label:'Number Of Appointments',
+        label:'Total Appointments',
         borderColor:'rgba(255,255,255,0.9)',
         backgroundColor:'rgba(255,255,255,0.4)',
         data: data,
@@ -62,16 +62,19 @@ class DashBoard extends  Component{
 constructor(props){
   super(props);
   this.props=props;
+  this.CancelAppointment=this.CancelAppointment.bind(this);
+}
+
+CancelAppointment(id){
+  this.props.updateApp(id);
 }
 
 
   render(){
     var user=JSON.parse(sessionStorage.getItem('user'));
-    var pendingAppointments=(record)=>{
-      return record.tag=="Pending";
-    }
 
     if(!this.props.status){
+    console.log(this.props.data);
     
     return(
       <div className="wrapper ">
@@ -87,6 +90,7 @@ constructor(props){
   width={100}
   height={180}
   options={ options}
+  redraw={true}
 />
 
       </div>
@@ -176,7 +180,8 @@ constructor(props){
                     </thead>
                     <tbody>
                      {this.props.data.filter((record)=>{
-                        return record.tag=="Pending";
+                       var AppMonth=new Date(record.apP_DATETIME);
+                        return (record.tag=="Pending" || record.tag=="Accepted")&&AppMonth.getMonth()==new Date().getMonth();
                     }).map((record)=>{
                       return(<tr key={record.id}>
                         <td>
@@ -195,7 +200,7 @@ constructor(props){
                         {onlyTime(record.apP_DATETIME)}
                         </td>
                         <td>
-                          <Button variant="danger">Cancel</Button>
+                          <Button variant="danger" onClick={()=>{this.CancelAppointment(record.id)}}>Cancel</Button>
                         </td>
                       </tr>)
                     })} 
@@ -240,8 +245,12 @@ const mapStateToProps=(state)=>{
 
 
 const mapDispatchToProps=(dispatch)=>{
-  return dispatch(loadAppointments(JSON.parse(sessionStorage.getItem('user')).id));
-  
+  return{
+   loadAppointments:dispatch(loadAppointments(JSON.parse(sessionStorage.getItem('user')).id)),
+   updateApp:(id)=>{
+     return dispatch(updateAppointment(id))
+   }
+  }
 }
 
 const DashWithData=connect(mapStateToProps,mapDispatchToProps)(DashBoard);

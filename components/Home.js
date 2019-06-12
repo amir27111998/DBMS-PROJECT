@@ -18,20 +18,20 @@ const Navigation=()=>{
       <Nav.Link eventKey={2} href="#contact">Contact Us</Nav.Link>
       <NavDropdown title="Login" id="collasible-nav-dropdown">
       <NavDropdown.Item >
-        <Link to="/login/patient" className="text-dark">Patient</Link>
+        <Link to="/login/patient" className="text-info">Patient</Link>
       </NavDropdown.Item>
       
       <NavDropdown.Item>
-        <Link to="/google" className="text-dark">Doctor</Link>
+        <Link to="/google" className="text-info">Doctor</Link>
       </NavDropdown.Item>
       </NavDropdown>
       
       <NavDropdown title="Signup" id="collasible-nav-dropdown">
       <NavDropdown.Item  >
-        <Link to="/signup/patient" className="text-dark">Patient</Link>
+        <Link to="/signup/patient" className="text-info">Patient</Link>
       </NavDropdown.Item>
       <NavDropdown.Item >
-        <Link to="/google" className="text-dark">Doctor</Link>
+        <Link to="/google" className="text-info">Doctor</Link>
       </NavDropdown.Item>
       </NavDropdown>
 

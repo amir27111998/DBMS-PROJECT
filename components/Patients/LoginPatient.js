@@ -4,9 +4,9 @@ import  {Link,Redirect}  from 'react-router-dom';
 import '../../src/styles/app.scss';
 
 import {Provider,connect} from 'react-redux';
-import Store from './Admin/redux/serviceLoder';
-//import patientStore from '../../../store/patientStore';
-import loadAppointments from './Admin/redux/serviceLoder';
+// import Store from './Admin/redux/serviceLoder';
+// //import patientStore from '../../../store/patientStore';
+import {loadAppointments} from './Admin/redux/serviceLoder';
 
 class LoginPatient extends Component{
 
@@ -76,7 +76,7 @@ class LoginPatient extends Component{
 
     render(){
          if(sessionStorage.getItem("isPatient")){
-             alert(sessionStorage.getItem("isPatient"))
+            
            return  <Redirect to="/patient/dashboard/user" />
          }
 
@@ -93,6 +93,7 @@ class LoginPatient extends Component{
         <Alert.Heading>Error!</Alert.Heading>
         {this.state.errMsg}
             </Alert>
+           
             <form onSubmit={this.signIn}>
                
                 <div className="form-group" style={{margin: '38px 40px 15px 40px'}}>
@@ -104,7 +105,7 @@ class LoginPatient extends Component{
                
                 <div className="form-group" style={{margin: '18px 89px 15px 89px'}}>
                     <p className="text-right">
-                        <Link className="text-dark" to="">Forgot Password</Link>
+                        <Link className="text-dark" to="/patient/resetpassword">Forgot Password</Link>
                     </p>
                 </div>
                 

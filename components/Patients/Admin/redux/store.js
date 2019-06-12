@@ -1,11 +1,13 @@
 import {combineReducers,createStore,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import {appointmentReducer} from './reducers';
+import {appointmentReducer,doctorsReducer,filterReducer} from './reducers';
 
 
 var store=createStore(
     combineReducers({
-        appointments:appointmentReducer
+        appointments:appointmentReducer,
+        doctors:doctorsReducer,
+        filters:filterReducer
     }),applyMiddleware(thunk));
 
 export default store;

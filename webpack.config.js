@@ -34,6 +34,18 @@ module.exports = {
       ],
     },
     {
+      test: /\.(pdf)$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name:'[name].[ext]',
+            outputPath:'/prescriptions'
+          },
+        },
+      ],
+    },
+    {
       test: /\.(png|woff|woff2|eot|ttf|svg)$/,
        use: ['url-loader?limit=100000'] 
     }

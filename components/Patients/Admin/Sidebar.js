@@ -6,13 +6,15 @@ import Dashboard from './DashboardGraph';
 import Appointment from './Appointment';
 import Profile from './Profile';
 import History from './History';
+import Feedback from './Feedback';
+import DoctorTimings from './DoctorTiming';
 import VisitedDoctors from './VisitedDoctors';
 import {BrowserRouter,Route,Switch,NavLink} from 'react-router-dom';
 //Redux
 //Redux
 import {connect} from 'react-redux';
  
-import loadAppointments from './redux/serviceLoder';
+import {loadAppointments} from './redux/serviceLoder';
 
 class Sidebar extends Component{
 
@@ -101,6 +103,8 @@ class Sidebar extends Component{
        <Route path="/history" component={History} />
        <Route  path="/visiteddoctors" component={VisitedDoctors} />
        <Route  path="/user" component={Profile} />
+       <Route  path="/timings/:id" component={DoctorTimings} />
+       <Route  path="/feedback/:app_id" component={Feedback} />
        </Switch>
        </div>
        </BrowserRouter>
