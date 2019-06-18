@@ -41,7 +41,7 @@ const onlyTime=(dateTime)=>{
 const checkDate=(dat)=>{
     var date=new Date(dat);
     var now=new Date();
-    if(date.getDate() <= new Date().getDate()){
+    if(date.getDate() < new Date().getDate()){
         return true;
     }
     return false;

@@ -6,6 +6,7 @@ import NavDash from './NavDash';
 import {dashboardFormatter, onlyDate,onlyTime} from '../Utilities';
 import {connect} from 'react-redux';
 import {loadAppointments,updateAppointment} from './redux/serviceLoder';
+import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 
 //Graph Options
 function chartData(data=[0,0,230,34,5]) {
@@ -63,6 +64,7 @@ constructor(props){
   super(props);
   this.props=props;
   this.CancelAppointment=this.CancelAppointment.bind(this);
+  this.printSlip=this.printSlip.bind(this);
 }
 
 CancelAppointment(id){
@@ -70,7 +72,33 @@ CancelAppointment(id){
 }
 
 
-  render(){
+printSlip(id,doctor,date,time){
+var content = '<div class="card card-body">'+
+'<div style="padding:10px;background-color:#000;font-family: Arial, Helvetica, sans-serif;">'+
+      '<p>++++++++++++++++++++++++++++++++++++++</P>'+
+      '<h2>Doctors Appointment System</h2>'+
+      '<p>++++++++++++++++++++++++++++++++++++++</P>'+
+      '<h4>Apppointment Id: '+id+'</h4>'+
+      '<h4>Doctor Name: <strong>'+doctor+'</strong></h4>'+
+      '<h4>Date: <strong>'+date+'</strong></h4>'+
+      '<h4>Time: <strong>'+time+'</strong></h4>'+
+'</div></div>';
+var mywindow = window.open('', 'Print', 'height=600,width=800');
+
+mywindow.document.write('<html><head><title>Print</title>');
+mywindow.document.write('</head><body >');
+mywindow.document.write(content);
+mywindow.document.write('</body></html>');
+
+mywindow.document.close();
+mywindow.focus()
+mywindow.print();
+mywindow.close();
+return true;
+}
+
+
+render(){
     var user=JSON.parse(sessionStorage.getItem('user'));
 
     if(!this.props.status){
@@ -174,7 +202,7 @@ CancelAppointment(id){
                       </th>
                       
                       <th>
-                        Cancel
+                        Actions
                       </th>
 
                     </thead>
@@ -200,6 +228,10 @@ CancelAppointment(id){
                         {onlyTime(record.apP_DATETIME)}
                         </td>
                         <td>
+                          {
+                            record.tag=="Accepted"?<Button variant="info" onClick={()=>{this.printSlip(record.id,record.doctoR_NAME,onlyDate(record.apP_DATETIME),onlyTime(record.apP_DATETIME))}} >Print Slip</Button> :""
+                          }
+                          &nbsp;
                           <Button variant="danger" onClick={()=>{this.CancelAppointment(record.id)}}>Cancel</Button>
                         </td>
                       </tr>)
@@ -211,7 +243,9 @@ CancelAppointment(id){
                   </table>
                 </div>
               </div>
+              
             </div>
+           
           </div>
         </div>
       </div>
