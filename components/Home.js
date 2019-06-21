@@ -22,7 +22,7 @@ const Navigation=()=>{
       </NavDropdown.Item>
       
       <NavDropdown.Item>
-        <Link to="/google" className="text-info">Doctor</Link>
+        <Link to="/login/doctor" className="text-info">Doctor</Link>
       </NavDropdown.Item>
       </NavDropdown>
       
