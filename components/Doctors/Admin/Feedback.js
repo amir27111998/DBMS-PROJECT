@@ -4,7 +4,7 @@ import NavDash from './NavDash';
 import {Button, Col,  Alert} from 'react-bootstrap';
 
 import {connect} from 'react-redux';
-import {giveFeedback} from './redux/serviceLoder';
+import {giveFeedback} from '../../Patients/Admin/redux/serviceLoder';
 
 
 class Feedback extends Component{

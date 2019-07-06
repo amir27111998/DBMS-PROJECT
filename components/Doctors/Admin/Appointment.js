@@ -3,11 +3,11 @@ import NavDash from './NavDash';
 import '../loadingFiles';
 import { Button, Spinner } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import {listOfDoctors} from './redux/serviceLoder';
+import {listOfDoctors} from '../../Patients/Admin/redux/serviceLoder';
 import {nameFilter,addressFilter,districtFilter,
-        specializationFilter,experianceFilter} from './redux/actions';
+        specializationFilter,experianceFilter} from '../../Patients/Admin/redux/actions';
 import {connect} from 'react-redux';
-import getFilterDoctors from './redux/selectors';
+import getFilterDoctors from '../../Patients/Admin/redux/selectors';
 
 class Appointment extends Component{
   constructor(props){

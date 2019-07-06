@@ -5,8 +5,9 @@ import {Line} from 'react-chartjs-2';
 import NavDash from './NavDash';
 import {dashboardFormatter, onlyDate,onlyTime} from '../Utilities';
 import {connect} from 'react-redux';
-import {loadAppointments,updateAppointment} from './redux/serviceLoder';
+import {loadAppointments,updateAppointment} from '../../Patients/Admin/redux/serviceLoder';
 import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
+import Dashboard from './Sidebar';
 
 //Graph Options
 function chartData(data=[0,0,230,34,5]) {
@@ -68,7 +69,7 @@ constructor(props){
 }
 
 CancelAppointment(id){
-  this.props.updateApp(id);
+  //this.props.updateApp(id);
 }
 
 
@@ -268,25 +269,25 @@ render(){
 
 
 
-const mapStateToProps=(state)=>{
-   return {
-     data:state.appointments.data,
-     status:state.appointments.loading,
-     feedbacks:state.appointments.feedbacks
-   }
-}
+// const mapStateToProps=(state)=>{
+//    return {
+//      data:state.appointments.data,
+//      status:state.appointments.loading,
+//      feedbacks:state.appointments.feedbacks
+//    }
+// }
 
 
 
-const mapDispatchToProps=(dispatch)=>{
-  return{
-   loadAppointments:dispatch(loadAppointments(JSON.parse(sessionStorage.getItem('doctor')).id)),
-   updateApp:(id)=>{
-     return dispatch(updateAppointment(id))
-   }
-  }
-}
+// const mapDispatchToProps=(dispatch)=>{
+//   return{
+//    loadAppointments:dispatch(loadAppointments(JSON.parse(sessionStorage.getItem('doctor')).id)),
+//    updateApp:(id)=>{
+//      return dispatch(updateAppointment(id))
+//    }
+//   }
+// }
 
-const DashWithData=connect(mapStateToProps,mapDispatchToProps)(DashBoard);
+// const DashWithData=connect(mapStateToProps,mapDispatchToProps)(DashBoard);
 
-export default DashWithData;
+export default Dashboard;

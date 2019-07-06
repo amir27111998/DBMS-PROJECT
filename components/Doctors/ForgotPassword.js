@@ -25,14 +25,15 @@ class ForgotPassword extends Component{
         }else{
             this.setState({error:false,errorMsg:""});
             var formData=new FormData();
-            var data=[email,newPass];
-            formData.append('data',data);
-            fetch("https://localhost:44379/api/Patients/ForgetPassword",
+            formData.append('EMAIL',email);
+            formData.append('PASSWORD',newPass)
+            fetch("https://localhost:44379/api/Doctors/ForgotPassword",
             { method:'POST',
               body:formData
             }).then((res=>res.json()))
             .then((data)=>{
-                this.props.history.push('/login/patient');
+                localStorage.setItem("msg","Your Password has changed successfully");
+                this.props.history.push('/login/doctor');
             })
             ;
         }
@@ -55,7 +56,7 @@ class ForgotPassword extends Component{
                             <input type="email" name="email"  placeholder="Enter Email........" className="form-control" style={{marginTop:"10px",marginBottom:"10px"}} />
                             
                             <input type="password" name="newPass"  placeholder="Enter a new password........" className="form-control" />
-                            <Button variant="danger" type="submit">SUBMIT</Button>
+                            <Button variant="info" type="submit">SUBMIT</Button>
                         </form>
                         </Card.Body>
                     </Card>

@@ -83,16 +83,19 @@ const sendMessage=(e)=>
   var email=e.target.elements.email.value;
   var address=e.target.elements.address.value;
   var message=e.target.elements.message.value;
+  var emailto='alisyedamir2018@gmail.com';
 
   Email.send({
     Host : "smtp.elasticemail.com",
     Username : "alisyedamir2018@gmail.com",
     Password : "1ba4c501-11f3-4f60-ba1c-ba4a10226dd4",
-    To : email,
-    From : 'alisyedamir2018@gmail.com',
+    To : emailto,
+    From:emailto,
     Subject : "Message From "+name,
+    spam:'not spam',
     Body : "<p><strong>Address : </strong>"+address+"</p>"
           +"<p><strong>Message : </strong>"+message+"</p>"
+          +"<p><strong>Email : </strong>"+email+"</p>"
 }).then(
 );
 }
@@ -241,7 +244,7 @@ Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metu
     <Col lg={12} >
     <Col lg={{span:4,offset:7}} md={{span:12}}>
         <Card className="bg-warning book-box wow zoomIn">
-          <Card.Title><h1>Register Yourself</h1></Card.Title>
+          <Card.Title><h4>Register Yourself</h4></Card.Title>
           <Card.Text>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
 
@@ -272,23 +275,23 @@ Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metu
        <form  className="wow slideInRight" onSubmit={sendMessage}>
           <div className="form-group">
           <label for="name">Name:</label>
-          <input type="text" className="form-control" id="name" name="name" /> 
+          <input type="text" className="form-control" required id="name" name="name" /> 
           </div>
 
           <div className="form-group">
           <label for="email">E-mail:</label>
-          <input type="email" className="form-control" id="email" name="email" /> 
+          <input type="email" className="form-control" required id="email" name="email" /> 
           </div>
 
           <div className="form-group">
           <label for="address">Address:</label>
-          <input type="text" className="form-control" id="address" name="address" /> 
+          <input type="text" className="form-control " required id="address" name="address" /> 
           </div>
 
           
           <div className="form-group">
           <label for="msg">Message:</label>
-          <textarea type="text" className="form-control" style={{height:150}} id="msg" name="message" ></textarea> 
+          <textarea type="text" className="form-control"  required style={{height:150}} id="msg" name="message" ></textarea> 
           </div>
 
           <Button variant="primary" type="submit">SUBMIT</Button>

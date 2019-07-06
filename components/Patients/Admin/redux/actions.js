@@ -96,8 +96,16 @@ const experianceFilter=(experiance)=>{
     }
 }
 
+const ListAppointmentsForDoctors=({data,loading})=>{
+    return{
+        type:'DOCTORS_APPOINTMENT',
+        data:data,
+        loading:loading
+    }
+}
+
 
 
 export {readAppointments,cancelAppointment,readVisitedDoctors,
         doctorsList,doctorsTimings,filterTimings,addFeedback,nameFilter,addressFilter,
-      specializationFilter,districtFilter,experianceFilter};
+      specializationFilter,districtFilter,experianceFilter,ListAppointmentsForDoctors};

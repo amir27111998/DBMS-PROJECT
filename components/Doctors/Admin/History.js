@@ -4,7 +4,7 @@ import NavDash from './NavDash';
 import {connect} from 'react-redux';
 import {Spinner, Button} from 'react-bootstrap';
 import {onlyDate,onlyTime} from '../Utilities'
-import {loadAppointments} from './redux/serviceLoder';
+import {loadAppointments} from '../../Patients/Admin/redux/serviceLoder';
 
 
 class History extends Component{

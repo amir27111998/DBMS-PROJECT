@@ -12,7 +12,8 @@ class LoginDoctor extends Component{
         this.props=props;
         this.state={
             error:false,
-            errMsg:''
+            errMsg:'',
+            loading:false
         };
         this.signIn=this.signIn.bind(this);
     }
@@ -34,7 +35,8 @@ class LoginDoctor extends Component{
             this.setState((prevState)=>{
                 return{
                     error:false,
-                    errMsg:''
+                    errMsg:'',
+                    loading:true
                 }
             });
             //Service calls for server
@@ -48,6 +50,11 @@ class LoginDoctor extends Component{
             .then((data)=>{
             
                 if(data.id){
+                    this.setState((prevState)=>{
+                        return{
+                            loading:false
+                        }
+                    });
                     sessionStorage.setItem("doctor",JSON.stringify(data));  
                     sessionStorage.setItem("isDoctor",true);
                     this.props.history.push("/doctor/dashboard/user");
@@ -56,7 +63,8 @@ class LoginDoctor extends Component{
                     this.setState((prevState)=>{
                         return{
                             error:true,
-                            errMsg:'Username or password is incorrect'
+                            errMsg:'Username or password is incorrect',
+                            loading:false
                         }
                     });
             }
@@ -75,7 +83,12 @@ class LoginDoctor extends Component{
            return  <Redirect to="/doctor/dashboard" />
          }
 
-     return(   
+         setTimeout(() => {
+            localStorage.setItem('msg',"");
+        }, 3000);
+
+     return( 
+           
     <Container > 
   
     <Col lg={{span:6,offset:3}} md={{span:8,offset:2}} sm={12} >
@@ -88,7 +101,19 @@ class LoginDoctor extends Component{
         <Alert.Heading>Error!</Alert.Heading>
         {this.state.errMsg}
             </Alert>
+        
+            <Alert variant="info" show={localStorage.getItem('msg')!="" || localStorage.getItem('msg')} >
+        {localStorage.getItem("msg")}
+            </Alert>
            
+           
+            <Alert className="text-center" variant="light" show={this.state.loading} >
+                <label className="text-info text-center">
+                    <span className="text-center spinner-border"></span>
+                </label>
+            </Alert>
+           
+
             <form onSubmit={this.signIn}>
                
                 <div className="form-group" style={{margin: '38px 40px 15px 40px'}}>
@@ -100,7 +125,7 @@ class LoginDoctor extends Component{
                
                 <div className="form-group" style={{margin: '18px 89px 15px 89px'}}>
                     <p className="text-right">
-                        <Link className="text-dark" to="/patient/resetpassword">Forgot Password</Link>
+                        <Link className="text-dark" to="/doctor/resetpassword">Forgot Password</Link>
                     </p>
                 </div>
                 

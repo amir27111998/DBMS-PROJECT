@@ -2,7 +2,7 @@ import React from 'react';
 import NavDash from './NavDash';
 import '../loadingFiles';
 import {connect} from 'react-redux';
-import {loadVisitedDoctors} from "./redux/serviceLoder";
+import {loadVisitedDoctors} from "../../Patients/Admin/redux/serviceLoder";
 import {Spinner, Button} from 'react-bootstrap';
 
 

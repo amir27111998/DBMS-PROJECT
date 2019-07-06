@@ -49,6 +49,15 @@ const filterReducer=(state=filtersInitialState,action)=>{
     }
 }
 
-export {appointmentReducer,doctorsReducer,filterReducer};
+const DoctorsAppointment=(state={data:[],loading:true},action)=>{
+    switch(action.type){
+        case "DOCTORS_APPOINTMENT":
+            return {data:action.data,loading:action.loading}
+        default:
+            return state;
+    }
+}
+
+export {appointmentReducer,doctorsReducer,filterReducer,DoctorsAppointment};
 
     

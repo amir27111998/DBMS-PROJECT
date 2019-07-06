@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import NavDash from './NavDash';
 import '../loadingFiles';
 import { Button, Spinner,Alert, Jumbotron } from 'react-bootstrap';
-import {doctorTiming} from './redux/serviceLoder';
+import {doctorTiming} from '../../Patients/Admin/redux/serviceLoder';
 import {connect} from 'react-redux';
 import {onlyTime,checkDay,checkDate, onlyDate} from '../Utilities';
 

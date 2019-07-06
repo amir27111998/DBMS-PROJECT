@@ -1,5 +1,5 @@
 import {readAppointments,cancelAppointment,readVisitedDoctors,doctorsList,doctorsTimings
-       ,addFeedback} from './actions';
+       ,addFeedback,ListAppointmentsForDoctors} from './actions';
 const loadAppointments=(id)=>{
     return (dispatch)=>{
     var formId=new FormData();
@@ -85,6 +85,23 @@ const giveFeedback=(comment,rating_id,app_id)=>{
 
 
 
+const ListAppointments=(id)=>{
+  return (dispatch)=>{
+    var Id=new FormData();
+    Id.append("ID",id); 
+    fetch("https://localhost:44379/api/Doctors/ListAppointments",{
+      method:"POST",
+      body:Id
+    })
+    .then(res=>res.json())
+    .then((data)=>{
+      dispatch(ListAppointmentsForDoctors({data:data,loading:false}));
+    }).catch((exception)=>{
+      console.log(exception);
+    });
+  }
+}
 
 
-export {loadAppointments,updateAppointment,loadVisitedDoctors,listOfDoctors,doctorTiming,giveFeedback};
+export {loadAppointments,updateAppointment,loadVisitedDoctors,
+  ListAppointments,listOfDoctors,doctorTiming,giveFeedback};

@@ -15,7 +15,8 @@ class LoginPatient extends Component{
         this.props=props;
         this.state={
             error:false,
-            errMsg:''
+            errMsg:'',
+            loading:false
         };
         this.signIn=this.signIn.bind(this);
     }
@@ -29,7 +30,8 @@ class LoginPatient extends Component{
             this.setState((prevState)=>{
                 return{
                     error:true,
-                    errMsg:'Both fields are required'
+                    errMsg:'Both fields are required',
+                    loading:false
                 }
             });
         }
@@ -37,7 +39,8 @@ class LoginPatient extends Component{
             this.setState((prevState)=>{
                 return{
                     error:false,
-                    errMsg:''
+                    errMsg:'',
+                    loading:true
                 }
             });
             //Service calls for server
@@ -61,7 +64,8 @@ class LoginPatient extends Component{
                     this.setState((prevState)=>{
                         return{
                             error:true,
-                            errMsg:'Username or password is incorrect'
+                            errMsg:'Username or password is incorrect',
+                            loading:false
                         }
                     });
             }
@@ -93,7 +97,11 @@ class LoginPatient extends Component{
         <Alert.Heading>Error!</Alert.Heading>
         {this.state.errMsg}
             </Alert>
-           
+            <Alert className="text-center" variant="light" show={this.state.loading} >
+                <label className="text-dark text-center">
+                    <span className="text-center spinner-border"></span>
+                </label>
+            </Alert>
             <form onSubmit={this.signIn}>
                
                 <div className="form-group" style={{margin: '38px 40px 15px 40px'}}>
