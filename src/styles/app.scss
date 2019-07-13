@@ -118,7 +118,9 @@ body{
   margin-left: 12px;
 }
 
-
+.navbar-toggler-icon{
+  margin: -10px;
+}
 
 .font-google{
   font-size: 200px;
@@ -131,7 +133,7 @@ body{
   .masthead {
     height: 100vh;
     min-height: 500px;
-    background-image: url('../images/mainBack.jpg');
+    background-image: url('../images/cal.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

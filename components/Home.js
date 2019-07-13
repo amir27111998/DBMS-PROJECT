@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Cover from './Cover';
-import {Nav,Navbar,NavDropdown,Container,Card,Row,Col, Button} from 'react-bootstrap';
+import {Nav,Navbar,NavDropdown,Container,Card,Row,Col, Button, Alert} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser,faBook,faSearch,faHospital,faCoffee} from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
+import SimpleReactValidator from 'simple-react-validator';
 
 const Navigation=(props)=>{
     return(
-<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
+<Navbar collapseOnSelect expand="lg"  bg="dark" variant="dark" sticky="top">
   <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+  <Navbar.Toggle  aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="ml-auto">
       <Nav.Link href="#top">Home</Nav.Link>
@@ -76,7 +77,32 @@ const Footer=()=>{
 }
 
 
-const sendMessage=(e)=>
+
+
+
+
+class ContentSection extends Component{
+
+  constructor(props){
+    super(props);
+    this.props=props;
+    this.state={
+      success:false,
+      successMsg:""
+    }
+     this.validator=new SimpleReactValidator();
+    this.sendMessage=this.sendMessage.bind(this);
+     this.setStateFromInput=(event)=>{
+      var obj = {};
+      obj[event.target.name] = event.target.value;
+      this.setState(obj);
+    }
+    
+  }
+
+
+
+sendMessage(e)
 {
   e.preventDefault();
   var name=e.target.elements.name.value;
@@ -84,7 +110,7 @@ const sendMessage=(e)=>
   var address=e.target.elements.address.value;
   var message=e.target.elements.message.value;
   var emailto='alisyedamir2018@gmail.com';
-
+  if(this.validator.allValid()){
   Email.send({
     Host : "smtp.elasticemail.com",
     Username : "alisyedamir2018@gmail.com",
@@ -98,224 +124,254 @@ const sendMessage=(e)=>
           +"<p><strong>Email : </strong>"+email+"</p>"
 }).then(
 );
+e.target.reset();
+this.setState({success:true,successMsg:"Your will replied soon......"});
+
+  setTimeout(()=>{
+    this.setState({success:false,successMsg:"",name:"",message:"",email:""});
+  },3000);
+
+  
+}
+else{
+  this.validator.showMessages();
+  this.forceUpdate();
+}
+
 }
 
 
-const ContentSection=(props)=>{
-
- 
-  return(
-    <Container fluid={true} >
-    <Content id="services" title="SERVICES">
-    <Row >
-    <Col lg={4} md={6} id="controlled-margin" className="wow fadeInLeft">
-      <Card >
-        <p  className=" text-center dynamic">
-      <FontAwesomeIcon icon={faUser} className="text-danger font-google" />
-      </p>
-        <Card.Body>
-          <Card.Title>
-            <h3>Register Your Self</h3>
-          </Card.Title>
-          <Card.Text>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-          </Card.Text>
-        </Card.Body>
-      </Card>
-      </Col>
 
 
-      <Col lg={4} md={6} id="controlled-margin" className="wow fadeInLeft" data-wow-delay="0.3s">
-      <Card >
-      <p  className=" text-center dynamic">
-      <FontAwesomeIcon icon={faSearch} className="text-danger font-google" />
-      </p>
-      <Card.Body>
-          <Card.Title>
-            <h3>Find Your Doctor</h3>
-          </Card.Title>
-          <Card.Text>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-          </Card.Text>
-        </Card.Body>
-      </Card>
-      </Col>
+  render(){
 
-
-      <Col lg={4} md={6} id="controlled-margin" className="wow fadeInLeft" data-wow-delay="0.6s">
-      <Card >
-      <p  className="text-center dynamic">
-      
-      <FontAwesomeIcon icon={faBook} className="text-danger font-google" />
-      </p>
-        <Card.Body>
-          <Card.Title>
-            <h3>Book Your Appointment</h3>
-          </Card.Title>
-          <Card.Text>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-          </Card.Text>
-        </Card.Body>
-      </Card>
-      </Col>
-
-    </Row>
-
-
-  
-
-
-
-
-
-    </Content>
- 
-
-  
-   
-    <div className="back">
-    <div className="back-overlay">
-    <Container>
-    <Row>
-    <Col lg={3}>
-    <p  className=" text-center dynamic wow slideInLeft">
-      <FontAwesomeIcon icon={faHospital} className="text-light font-google" />
-      </p>
-      </Col>
-
-      <Col lg={{span:8,offset:1}}>
-    <p  className="text-light text-left dynamic wow slideInRight">
-    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
-
-Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.
-
-      </p>
-      </Col>
-
-     
-    </Row>
-    </Container>
-    </div>
-
-    </div>
-
-
-    <Content id="about" title="ABOUT US">
-      <Row>
-        <Col lg={4} md={12} sm={12}>
-        <img src="http://pngimg.com/uploads/doctor/doctor_PNG15971.png" className="img-fluid wow slideInLeft"  />
-        </Col>
-        
-        <Col lg={8} md={12} sm={12} className="about">
-        <h3 className="text-capital wow slideInRight">Why Choose Us</h3>
-        <p className="wow slideInRight" data-wow-delay="0.7s">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
-
+    return(
+      <Container fluid={true} >
+      <Content id="services" title="SERVICES">
+      <Row >
+      <Col lg={4} md={6} id="controlled-margin" className="wow fadeInLeft">
+        <Card >
+          <p  className=" text-center dynamic">
+        <FontAwesomeIcon icon={faUser} className="text-danger font-google" />
         </p>
-
-        <h3 className="text-capital wow slideInRight" >Make An Appointment</h3>
-        <p className="wow slideInRight" data-wow-delay="0.7s">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
-
-        </p>
-
-        <h3 className="text-capital wow slideInRight">Check Prescriptions</h3>
-        <p className="wow slideInRight" data-wow-delay="0.7s">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
-
-        </p>
-
-
-
-        </Col>
-
-
-
-      </Row>
-    </Content>
-    
-
-    <div className="back-contact">
-    <div className="back-contact-overlay">
-    <Container>
-    <Row>
-    <Col lg={12} >
-    <Col lg={{span:4,offset:7}} md={{span:12}}>
-        <Card className="bg-warning book-box wow zoomIn">
-          <Card.Title><h4>Register Yourself</h4></Card.Title>
-          <Card.Text>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
-
-          </Card.Text>
-          <Button variant="outline-secondary" className="text-light"
-          onClick={()=>{
-            props.history.push('/signup/patient');
-          }}>Register</Button>
+          <Card.Body>
+            <Card.Title>
+              <h3>Register Your Self</h3>
+            </Card.Title>
+            <Card.Text>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+            </Card.Text>
+          </Card.Body>
         </Card>
-
-      </Col>
-      </Col>
-     
-    </Row>
-    </Container>
-    </div>
-
-    </div>
-
-
-    <Content id="contact" title="CONTACT US">
-      <Row>
-        <Col lg={6} md={12} sm={12}>
-        <div className="responsive-map-container wow slideInLeft">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.0207131714733!2d67.11026565114246!3d24.931364283942088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb338b8d4494c91%3A0xf864ed97b4a8ec0e!2sNED+University+of+Engineering+and+Technology!5e0!3m2!1sen!2s!4v1559129235889!5m2!1sen!2s" width="800" height="600" frameBorder="0" className="map-responsive" allowFullScreen></iframe>
-        </div>
         </Col>
+  
+  
+        <Col lg={4} md={6} id="controlled-margin" className="wow fadeInLeft" data-wow-delay="0.3s">
+        <Card >
+        <p  className=" text-center dynamic">
+        <FontAwesomeIcon icon={faSearch} className="text-danger font-google" />
+        </p>
+        <Card.Body>
+            <Card.Title>
+              <h3>Find Your Doctor</h3>
+            </Card.Title>
+            <Card.Text>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        </Col>
+  
+  
+        <Col lg={4} md={6} id="controlled-margin" className="wow fadeInLeft" data-wow-delay="0.6s">
+        <Card >
+        <p  className="text-center dynamic">
         
-        <Col lg={6} md={12} sm={12} className="about">
-        <h3 className="text-capital wow slideInRight">Ask Any Query</h3>
-       <form  className="wow slideInRight" onSubmit={sendMessage}>
-          <div className="form-group">
-          <label for="name">Name:</label>
-          <input type="text" className="form-control" required id="name" name="name" /> 
-          </div>
-
-          <div className="form-group">
-          <label for="email">E-mail:</label>
-          <input type="email" className="form-control" required id="email" name="email" /> 
-          </div>
-
-          <div className="form-group">
-          <label for="address">Address:</label>
-          <input type="text" className="form-control " required id="address" name="address" /> 
-          </div>
-
-          
-          <div className="form-group">
-          <label for="msg">Message:</label>
-          <textarea type="text" className="form-control"  required style={{height:150}} id="msg" name="message" ></textarea> 
-          </div>
-
-          <Button variant="primary" type="submit">SUBMIT</Button>
-
-       </form>
-
-
+        <FontAwesomeIcon icon={faBook} className="text-danger font-google" />
+        </p>
+          <Card.Body>
+            <Card.Title>
+              <h3>Book Your Appointment</h3>
+            </Card.Title>
+            <Card.Text>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+            </Card.Text>
+          </Card.Body>
+        </Card>
         </Col>
-
-
-
+  
       </Row>
-    </Content>
-
-
+  
+  
+    
+  
+  
+  
+  
+  
+      </Content>
    
+  
+    
+     
+      <div className="back">
+      <div className="back-overlay">
+      <Container>
+      <Row>
+      <Col lg={3}>
+      <p  className=" text-center dynamic wow slideInLeft">
+        <FontAwesomeIcon icon={faHospital} className="text-light font-google" />
+        </p>
+        </Col>
+  
+        <Col lg={{span:8,offset:1}}>
+      <p  className="text-light text-left dynamic wow slideInRight">
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
+  
+  Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.
+  
+        </p>
+        </Col>
+  
+       
+      </Row>
+      </Container>
+      </div>
+  
+      </div>
+  
+  
+      <Content id="about" title="ABOUT US">
+        <Row>
+          <Col lg={4} md={12} sm={12}>
+          <img src="http://pngimg.com/uploads/doctor/doctor_PNG15971.png" className="img-fluid wow slideInLeft"  />
+          </Col>
+          
+          <Col lg={8} md={12} sm={12} className="about">
+          <h3 className="text-capital wow slideInRight">Why Choose Us</h3>
+          <p className="wow slideInRight" data-wow-delay="0.7s">
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
+  
+          </p>
+  
+          <h3 className="text-capital wow slideInRight" >Make An Appointment</h3>
+          <p className="wow slideInRight" data-wow-delay="0.7s">
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
+  
+          </p>
+  
+          <h3 className="text-capital wow slideInRight">Check Prescriptions</h3>
+          <p className="wow slideInRight" data-wow-delay="0.7s">
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
+  
+          </p>
+  
+  
+  
+          </Col>
+  
+  
+  
+        </Row>
+      </Content>
+      
+  
+      <div className="back-contact">
+      <div className="back-contact-overlay">
+      <Container>
+      <Row>
+      <Col lg={12} >
+      <Col lg={{span:4,offset:7}} md={{span:12}}>
+          <Card className="bg-warning book-box wow zoomIn">
+            <Card.Title><h4>Register Yourself</h4></Card.Title>
+            <Card.Text>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
+  
+            </Card.Text>
+            <Button variant="outline-secondary" className="text-light"
+            onClick={()=>{
+              this.props.history.push('/signup/patient');
+            }}>Register</Button>
+          </Card>
+  
+        </Col>
+        </Col>
+       
+      </Row>
+      </Container>
+      </div>
+  
+      </div>
+  
+  
+      <Content id="contact" title="CONTACT US">
+        <Row>
+          <Col lg={6} md={12} sm={12}>
+          <div className="responsive-map-container wow slideInLeft">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.0207131714733!2d67.11026565114246!3d24.931364283942088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb338b8d4494c91%3A0xf864ed97b4a8ec0e!2sNED+University+of+Engineering+and+Technology!5e0!3m2!1sen!2s!4v1559129235889!5m2!1sen!2s" width="800" height="600" frameBorder="0" className="map-responsive" allowFullScreen></iframe>
+          </div>
+          </Col>
+          
+          <Col lg={6} md={12} sm={12} className="about">
+          <h3 className="text-capital wow slideInRight">Ask Any Query</h3>
+         <Alert variant="warning" className="text-dark" show={this.state.success}>
+           {this.state.successMsg}
+         </Alert>
+         <form  className="wow slideInRight" onSubmit={this.sendMessage}>
+            <div className="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" className="form-control" value={this.state.name} onChange={this.setStateFromInput}  id="name" name="name" /> 
+            <span className="text-danger">{this.validator.message("name",this.state.name,"required|min:5")}</span>
+            </div>
+  
+            <div className="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" className="form-control"  id="email" name="email" value={this.state.email} onChange={this.setStateFromInput} /> 
+            <span className="text-danger">{this.validator.message("email",this.state.email,"required|email")}</span>
+            </div>
+  
+            <div className="form-group">
+            <label for="address">Address:</label>
+            <input type="text" className="form-control "  id="address" name="address" /> 
+            </div>
+  
+            
+            <div className="form-group">
+            <label for="msg">Message:</label>
+            <textarea type="text" className="form-control"   style={{height:150}} id="message" name="message" value={this.state.message} onChange={this.setStateFromInput} ></textarea> 
+            <span className="text-danger">{this.validator.message("message",this.state.message,"required|min:10")}</span>
+            </div>
+  
+            <Button variant="primary" type="submit">SUBMIT</Button>
+  
+         </form>
+  
+  
+          </Col>
+  
+  
+  
+        </Row>
+      </Content>
+  
+  
+     
+  
+   
+    </Container>
+    )
 
- 
-  </Container>
-  );
+  }
+
+
 }
+
+
+
+
+
 
 
 

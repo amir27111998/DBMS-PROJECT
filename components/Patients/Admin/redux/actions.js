@@ -134,8 +134,16 @@ const UpdateAppointment=({id,status_id})=>{
     }
 }
 
+const loadFeedBacksAndRatings=({data,loading})=>{
+    return{
+        type:'FEEDBACKS_RATINGS',
+        feedbacks:data,
+        loading:loading
+    }
+}
+
 
 export {readAppointments,cancelAppointment,readVisitedDoctors,
         doctorsList,doctorsTimings,filterTimings,addFeedback,nameFilter,addressFilter,
       specializationFilter,districtFilter,experianceFilter,ListAppointmentsForDoctors,ListTimingsForDoctors,
-    AddTimings,DeleteTiming,UpdateAppointment};
+    AddTimings,DeleteTiming,UpdateAppointment,loadFeedBacksAndRatings};

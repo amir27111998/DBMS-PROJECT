@@ -49,20 +49,21 @@ const filterReducer=(state=filtersInitialState,action)=>{
     }
 }
 
-const DoctorsAppointment=(state={data:[],timings:[],loading:true},action)=>{
+const DoctorsAppointment=(state={data:[],feedbacks:[],timings:[],loading:true},action)=>{
     switch(action.type){
         case "DOCTORS_APPOINTMENT":
-            return {data:action.data,loading:action.loading,timings:state.timings}
+            return {data:action.data,feedbacks:state.feedbacks,loading:action.loading,timings:state.timings}
         case "DOCTORS_SCHEDULE":
-                return {data:state.data,timings:action.timings,loading:action.loading}
+                return {data:state.data,feedbacks:state.feedbacks,timings:action.timings,loading:action.loading}
         case "ADD_TIMINGS":
             state.timings.push(action.item)
             return state;  
         case "DELETE_TIMING":
-            return {data:state.data,timings:state.timings.filter((time)=>{return time.id!==action.id}),loading:state.loading};    
+            return {data:state.data,feedbacks:state.feedbacks,timings:state.timings.filter((time)=>{return time.id!==action.id}),loading:state.loading};    
         case "UPDATE_APPOINTMENT":
             return state;
-       
+        case "FEEDBACKS_RATINGS":
+            return {data:state.data,feedbacks:action.feedbacks,timings:state.timings,loading:action.loading}
         default:
             return state;
     }

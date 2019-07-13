@@ -4,8 +4,7 @@ import '../loadingFiles';
 import Dashboard from './DashboardGraph';
 import Appointment from './Appointments_List';
 import Profile from './Profile';
-import History from './History';
-import Feedback from './Feedback';
+import Feedbacks from './Feedbacks';
 import DoctorTimings from './DoctorTiming';
 import Timings from './Timings';
 import {BrowserRouter,Route,Switch,NavLink} from 'react-router-dom';
@@ -64,8 +63,8 @@ class Sidebar extends Component{
              <li>
                <a>
                  <i className="now-ui-icons location_map-big"></i>
-                 <NavLink to="/history" className="text-light" style={{textDecoration:'none'}}>
-                 <p>Appointment History</p>
+                 <NavLink to="/replies" className="text-light" style={{textDecoration:'none'}}>
+                 <p>Patient Replies</p>
                 </NavLink>
                  
                </a>
@@ -104,11 +103,10 @@ class Sidebar extends Component{
       
        <Route path="/"   component={Dashboard}  exact={true}/>
        <Route path="/appointment" component={Appointment} />
-       <Route path="/history" component={History} />
+       <Route path="/replies" component={Feedbacks} />
        <Route  path="/manage_timings" component={Timings} />
        <Route  path="/user" component={Profile} />
        <Route  path="/timings/:id" component={DoctorTimings} />
-       <Route  path="/feedback/:app_id" component={Feedback} />
        </Switch>
       
        </div>

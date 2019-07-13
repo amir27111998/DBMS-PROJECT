@@ -1,6 +1,7 @@
 import {readAppointments,cancelAppointment,readVisitedDoctors,doctorsList,doctorsTimings
        ,addFeedback,ListAppointmentsForDoctors,ListTimingsForDoctors,AddTimings,
-       DeleteTiming,UpdateAppointment} from './actions';
+       DeleteTiming,UpdateAppointment,loadFeedBacksAndRatings} from './actions';
+import { da } from 'date-fns/esm/locale';
 
 const loadAppointments=(id)=>{
     return (dispatch)=>{
@@ -186,6 +187,19 @@ const UpdateApp=(id,statusID)=>{
 }
 
 
+const ReadFeedBack=(id)=>{
+  return (dispatch)=>{
+    fetch("https://localhost:44379/api/Doctors/loadFeeds/"+id)
+    .then(res=>res.json())
+    .then((data)=>{
+      dispatch(loadFeedBacksAndRatings({data:data,loading:false}));
+    });
+  }
+
+}
+
+
+
 export {loadAppointments,updateAppointment,loadVisitedDoctors,
   ListAppointments,listOfDoctors,doctorTiming,giveFeedback,doctorSchedule,addTime,deleteTime,
-UpdateApp};
+UpdateApp,ReadFeedBack};
