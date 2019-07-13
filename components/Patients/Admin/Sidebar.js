@@ -104,6 +104,7 @@ class Sidebar extends Component{
        <Route  path="/visiteddoctors" component={VisitedDoctors} />
        <Route  path="/user" component={Profile} />
        <Route  path="/timings/:id" component={DoctorTimings} />
+       
        <Route  path="/feedback/:app_id" component={Feedback} />
        </Switch>
        </div>

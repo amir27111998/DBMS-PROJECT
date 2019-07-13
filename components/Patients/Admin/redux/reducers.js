@@ -49,10 +49,20 @@ const filterReducer=(state=filtersInitialState,action)=>{
     }
 }
 
-const DoctorsAppointment=(state={data:[],loading:true},action)=>{
+const DoctorsAppointment=(state={data:[],timings:[],loading:true},action)=>{
     switch(action.type){
         case "DOCTORS_APPOINTMENT":
-            return {data:action.data,loading:action.loading}
+            return {data:action.data,loading:action.loading,timings:state.timings}
+        case "DOCTORS_SCHEDULE":
+                return {data:state.data,timings:action.timings,loading:action.loading}
+        case "ADD_TIMINGS":
+            state.timings.push(action.item)
+            return state;  
+        case "DELETE_TIMING":
+            return {data:state.data,timings:state.timings.filter((time)=>{return time.id!==action.id}),loading:state.loading};    
+        case "UPDATE_APPOINTMENT":
+            return state;
+       
         default:
             return state;
     }

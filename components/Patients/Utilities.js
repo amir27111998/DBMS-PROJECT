@@ -32,6 +32,14 @@ const onlyDate=(dateTime)=>{
 
 const onlyTime=(dateTime)=>{
     var date=new Date(dateTime);
+    var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+    var am_pm = date.getHours() >= 12 ? "PM" : "AM";
+    return hours+':'+date.getMinutes()+' '+am_pm;
+};
+
+
+const onlyTimeForTimings=(dateTime)=>{
+    var date=new Date(dateTime);
     var hours = date.getUTCHours() > 12 ? date.getUTCHours() - 12 : date.getUTCHours();
     var am_pm = date.getUTCHours() >= 12 ? "PM" : "AM";
     return hours+':'+date.getMinutes()+' '+am_pm;
@@ -50,7 +58,7 @@ const checkDate=(dat)=>{
 
 //checking for day is in appointment days
 const checkDay=(days,date)=>{
-    var Days=days.split('|');
+    var Days=days.split(',');
     var daysArray=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
     var dateT=new Date(date);
     var selectedDay=daysArray[dateT.getDay()].trim();
@@ -59,4 +67,4 @@ const checkDay=(days,date)=>{
     }))
 }
 
-export {dashboardFormatter,onlyDate,onlyTime,checkDay,checkDate};
+export {dashboardFormatter,onlyDate,onlyTime,checkDay,checkDate,onlyTimeForTimings};

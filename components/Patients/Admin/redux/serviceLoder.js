@@ -1,5 +1,7 @@
 import {readAppointments,cancelAppointment,readVisitedDoctors,doctorsList,doctorsTimings
-       ,addFeedback,ListAppointmentsForDoctors} from './actions';
+       ,addFeedback,ListAppointmentsForDoctors,ListTimingsForDoctors,AddTimings,
+       DeleteTiming,UpdateAppointment} from './actions';
+
 const loadAppointments=(id)=>{
     return (dispatch)=>{
     var formId=new FormData();
@@ -102,6 +104,88 @@ const ListAppointments=(id)=>{
   }
 }
 
+const doctorSchedule=(id)=>{
+  return (dispatch)=>{
+    var formData=new FormData();
+    formData.append("ID",id);
+    fetch("https://localhost:44379/api/Doctors/doctorTimings",{
+      method:'POST',
+      body:formData
+    }).then(res=>res.json())
+    .then((data)=>{
+      dispatch(ListTimingsForDoctors({data,loading:"scheduleloaded"}));
+    });
+  }
+}
+
+
+const addTime=(user,e,start,end,days)=>{
+  return (dispatch)=>{
+    var address=e.target.elements.address.value;
+    var amount=e.target.elements.amount.value;
+    var formData=new FormData();
+    formData.append("START_TIME",start);
+    formData.append("END_TIME",end);
+    formData.append("DISTRICT_ID",user.districT_ID);
+    formData.append("ADDRESS",address);
+    formData.append("DOCTOR_ID",user.id);
+    formData.append("AMOUNT",amount);
+    formData.append("DAYS",days);    
+    fetch("https://localhost:44379/api/Doctors/NewTiming",{
+      method:'POST',
+      body:formData
+    }).then(res=>res.json())
+    .then((data)=>{
+      days=days.join(',')
+      var item={
+        address: address,
+        amount: amount,
+        days: days,
+        districT_ID: user.districT_ID,
+        doctoR_ID: user.id,
+        enD_TIME: end,
+        id:data,
+        starT_TIME: start
+      };
+     dispatch(AddTimings({item}));
+    });
+  }
+}
+
+
+const deleteTime=(id,start,end)=>{
+  return (dispatch)=>{
+    var user=JSON.parse(sessionStorage.getItem('doctor'));
+    var formData=new FormData();
+    formData.append("data",[id,start,end,user.id]);    
+    fetch("https://localhost:44379/api/Doctors/DeleteTiming",{
+      method:'POST',
+      body:formData
+    }).then(res=>res.json())
+    .then((data)=>{
+     dispatch(DeleteTiming({id}));
+    });
+  }
+}
+
+
+const UpdateApp=(id,statusID)=>{
+  return (dispatch)=>{
+    var formData=new FormData();
+    formData.append("data",[id,statusID]);
+    fetch("https://localhost:44379/api/Doctors/UpdateStatus",{
+      method:"POST",
+      body:formData
+    }).then(res=>res.json())
+    .then((data)=>{
+      if(data!=0){
+        dispatch(UpdateAppointment({id,statusID}));
+      }
+    });
+  }
+}
+
 
 export {loadAppointments,updateAppointment,loadVisitedDoctors,
-  ListAppointments,listOfDoctors,doctorTiming,giveFeedback};
+  ListAppointments,listOfDoctors,doctorTiming,giveFeedback,doctorSchedule,addTime,deleteTime,
+UpdateApp};

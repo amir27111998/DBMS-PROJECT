@@ -104,8 +104,38 @@ const ListAppointmentsForDoctors=({data,loading})=>{
     }
 }
 
+const ListTimingsForDoctors=({data,loading})=>{
+    return{
+        type:'DOCTORS_SCHEDULE',
+        timings:data,
+        loading:loading
+    } 
+}
+
+const AddTimings=({item})=>{
+    return{
+        type:'ADD_TIMINGS',
+        item:item
+    } 
+}
+
+const DeleteTiming=({id})=>{
+    return{
+        type:'DELETE_TIMING',
+        id:id
+    } 
+}
+
+const UpdateAppointment=({id,status_id})=>{
+    return{
+        type:'UPDATE_APPOINTMENT',
+        id:id,
+        status_id:status_id
+    }
+}
 
 
 export {readAppointments,cancelAppointment,readVisitedDoctors,
         doctorsList,doctorsTimings,filterTimings,addFeedback,nameFilter,addressFilter,
-      specializationFilter,districtFilter,experianceFilter,ListAppointmentsForDoctors};
+      specializationFilter,districtFilter,experianceFilter,ListAppointmentsForDoctors,ListTimingsForDoctors,
+    AddTimings,DeleteTiming,UpdateAppointment};

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser,faBook,faSearch,faHospital,faCoffee} from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
 
-const Navigation=()=>{
+const Navigation=(props)=>{
     return(
 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
   <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
@@ -101,7 +101,7 @@ const sendMessage=(e)=>
 }
 
 
-const ContentSection=()=>{
+const ContentSection=(props)=>{
 
  
   return(
@@ -249,7 +249,10 @@ Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metu
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
 
           </Card.Text>
-          <Button variant="outline-secondary" className="text-light">Register</Button>
+          <Button variant="outline-secondary" className="text-light"
+          onClick={()=>{
+            props.history.push('/signup/patient');
+          }}>Register</Button>
         </Card>
 
       </Col>
@@ -317,14 +320,14 @@ Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metu
 
 
 
-const Home=()=>{
+const Home=(props)=>{
     return(
       <div>
         
         <Cover id="top" />
         <Navigation />
        
-        <ContentSection />
+        <ContentSection {...props} />
 
 
       <Footer />

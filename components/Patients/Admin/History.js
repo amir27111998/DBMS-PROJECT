@@ -25,7 +25,10 @@ prescription(id){
   .then((res)=>res.json())
   .then((data)=>{
     if(data[0]!=null){
-    window.open(require('./assets/pres/'+data[0]));
+      var doc = new jsPDF('p', 'mm', [500,500]); //210mm wide and 297mm high
+            
+      doc.addImage(data[0], 'PNG', 10, 10);
+      doc.save('prescription.pdf');
     }
     else{
       window.open(require('./assets/img/notFound.jpg'));

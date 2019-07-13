@@ -7,7 +7,7 @@ import Profile from './Profile';
 import History from './History';
 import Feedback from './Feedback';
 import DoctorTimings from './DoctorTiming';
-import VisitedDoctors from './VisitedDoctors';
+import Timings from './Timings';
 import {BrowserRouter,Route,Switch,NavLink} from 'react-router-dom';
 
 
@@ -74,8 +74,8 @@ class Sidebar extends Component{
                <a>
              
                  <i className="now-ui-icons education_atom"></i>
-                 <NavLink to="/visiteddoctors" className="text-light" style={{textDecoration:'none'}}>
-                   <p>Visited Doctors
+                 <NavLink to="/manage_timings" className="text-light" style={{textDecoration:'none'}}>
+                   <p>Manage Schedule
                    </p>
                    </NavLink>
              
@@ -105,7 +105,7 @@ class Sidebar extends Component{
        <Route path="/"   component={Dashboard}  exact={true}/>
        <Route path="/appointment" component={Appointment} />
        <Route path="/history" component={History} />
-       <Route  path="/visiteddoctors" component={VisitedDoctors} />
+       <Route  path="/manage_timings" component={Timings} />
        <Route  path="/user" component={Profile} />
        <Route  path="/timings/:id" component={DoctorTimings} />
        <Route  path="/feedback/:app_id" component={Feedback} />
