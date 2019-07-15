@@ -118,6 +118,7 @@ class Register extends Component{
                     this.setState({success:true});
                     setTimeout(() => {
                         this.setState({success:false});
+                        this.props.history.push("/login/doctor");
                     }, 5000);
                         
                     
