@@ -9,6 +9,7 @@ import Home from '../components/Home';
 import ForgotPassword from './Patients/ForgotPassword';
 //Doctor's Component
 import LoginDoctor from './Doctors/LoginDoctor';
+import SignupDoctor from './Doctors/SignupDoctor';
 import Store from './Patients/Admin/redux/store';
 import ForgotDoctorPassword from './Doctors/ForgotPassword';
 import {Provider} from 'react-redux';
@@ -32,6 +33,8 @@ return(
         <Route path="/login/doctor" component={LoginDoctor}  />
         <Route path="/doctor/dashboard" component={DoctorsAdmin} {...props} />
         <Route path="/doctor/resetpassword" component={ForgotDoctorPassword} />
+        <Route path="/signup/doctor" component={SignupDoctor} {...props}   />
+        
         <Route component={notFound}/>
         </Switch>
         </Provider>

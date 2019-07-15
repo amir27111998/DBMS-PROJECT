@@ -9,7 +9,7 @@ import SimpleReactValidator from 'simple-react-validator';
 const Navigation=(props)=>{
     return(
 <Navbar collapseOnSelect expand="lg"  bg="dark" variant="dark" sticky="top">
-  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+  <Navbar.Brand href="#home">App Demo </Navbar.Brand>
   <Navbar.Toggle  aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="ml-auto">
@@ -32,7 +32,7 @@ const Navigation=(props)=>{
         <Link to="/signup/patient" className="text-info">Patient</Link>
       </NavDropdown.Item>
       <NavDropdown.Item >
-        <Link to="/google" className="text-info">Doctor</Link>
+        <Link to="/signup/doctor" className="text-info">Doctor</Link>
       </NavDropdown.Item>
       </NavDropdown>
 
@@ -109,12 +109,12 @@ sendMessage(e)
   var email=e.target.elements.email.value;
   var address=e.target.elements.address.value;
   var message=e.target.elements.message.value;
-  var emailto='alisyedamir2018@gmail.com';
+  var emailto='alisyedaamir123@hotmail.com';
   if(this.validator.allValid()){
   Email.send({
     Host : "smtp.elasticemail.com",
-    Username : "alisyedamir2018@gmail.com",
-    Password : "1ba4c501-11f3-4f60-ba1c-ba4a10226dd4",
+    Username : "alisyedaamir123@hotmail.com",
+    Password : "38cd683b-dcbc-41d6-95c8-6dba1540fc0b",
     To : emailto,
     From:emailto,
     Subject : "Message From "+name,

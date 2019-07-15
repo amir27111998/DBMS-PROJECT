@@ -29,7 +29,7 @@ const VisitedDoctors=(props)=>{
                 <div className="card-body">
                   <div className="author">
                     <a >
-                      <img className="avatar border-gray" src={require("./assets/img/"+doctor.picture)} alt="..." />
+                      <img className="avatar border-gray" src={require("../../Doctors/Admin/assets/img/"+doctor.picture)} alt="..." />
                       <h5 className="title">{doctor.name}</h5>
                     </a>
                     <p className="description">

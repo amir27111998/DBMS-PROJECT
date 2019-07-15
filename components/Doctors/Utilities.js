@@ -16,6 +16,42 @@ const dashboardFormatter=(data)=>{
 };
 
 
+const MonthFormatter=(data)=>{
+    var date=new Date();
+    var sevenDaysBack=(date.getTime()-(7*24*60*60*1000));
+    var d=[0,0,0,0,0,0,0];
+    for(var i=0;i<data.length;i++){
+        var Da=new Date(data[i].apP_DATETIME);
+        
+        if(Da.getTime()>=sevenDaysBack && Da.getTime()<=date.getTime()){
+            d[Da.getDay()]+=1;
+        }
+    }
+    
+    return d;
+};
+
+
+const PieFormatter=(data)=>{
+    var date=new Date();
+    var d=[0,0,0,0];
+    for(var i=0;i<data.length;i++){
+        var Da=new Date(data[i].apP_DATETIME);
+        if(date.getMonth()==Da.getMonth() && data[i].tags=="Completed"){
+            d[0]+=1;
+        }
+        else if(date.getMonth()==Da.getMonth() && data[i].tags=="Declined"){
+            d[1]+=1;
+        }
+        else if(date.getMonth()==Da.getMonth() && data[i].tags=="Pending"){
+            d[2]+=1;
+        }
+        else if(date.getMonth()==Da.getMonth() && data[i].tags=="Accepted"){
+            d[3]+=1;
+        }
+    }
+    return d;
+};
 
 
 const onlyDate=(dateTime)=>{
@@ -67,4 +103,4 @@ const checkDay=(days,date)=>{
     }))
 }
 
-export {dashboardFormatter,onlyDate,onlyTime,checkDay,checkDate,onlyTimeForTimings};
+export {dashboardFormatter,MonthFormatter,onlyDate,onlyTime,PieFormatter,checkDay,checkDate,onlyTimeForTimings};
